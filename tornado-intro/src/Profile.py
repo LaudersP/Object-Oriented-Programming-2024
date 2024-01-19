@@ -36,7 +36,7 @@ class Handler(tornado.web.RequestHandler):
             email = accountDatabase[username]['email']
 
             ## Render the HTML webpage with data variables
-            self.render("..\html\Profile.html",
+            self.render('../html/Profile.html',
                         username = username,
                         name = realName,
                         dateOfBirth = dob,
