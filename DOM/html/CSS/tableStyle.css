@@ -1,0 +1,37 @@
+table {
+    border-collapse: collapse;
+    width: auto;
+    margin-top: 20px;
+}
+
+th, tr, td {
+    border: 1px solid #111111;
+    padding: 8px;
+    text-align: center;
+}
+
+.Rouge {
+    color: #111111;
+    background-color: #ff0000;
+}
+
+.Noir {
+    color: #FFFFFF;
+    background-color: #111111;
+}
+
+.Pair {
+    background-color: violet;
+}
+
+.Impair {
+    background-color: yellow;
+}
+
+.Passe {
+    background-color: greenyellow;
+}
+
+.Manque {
+    background-color: orange;
+}
