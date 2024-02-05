@@ -1,8 +1,5 @@
 "use strict";
 
-// Counter for spin number
-let spinCounter = 0;
-
 // Array to store the last 9 spins
 let lastSpins = [];
 
@@ -14,11 +11,35 @@ function spin() {
     // Randomize a value
     let chosenIndex = Randomize(roulette.length);
 
-    console.log(roulette[chosenIndex]);
+    // Number picked
+    let pickedNumber = roulette[chosenIndex];
+    
+    // Set color variable
+    let color = "";
+    if(chosenIndex % 2) {
+        color = "Noir";  // Black
+    } else {
+        color = "Rouge"; // Red
+    }
 
-    spinCounter++;
+    // Set number as 'Pair' or 'Impair'
+    let numberType = "";
+    if((roulette[chosenIndex] % 2) || (roulette[chosenIndex] == "0")) {
+        numberType =  "Impair";   // Odd
+    } else {
+        numberType = "Pair";  // Even
+    }
 
-    updateTable(roulette[chosenIndex]);
+    // Check if number is 'Manque' or 'Passe'
+    let numberCheck = "";
+    if(roulette[chosenIndex] <= 18) {
+        numberCheck = "Manque";    // Failed 1-18
+    } else if((roulette[chosenIndex] > 18) || roulette[chosenIndex] == "00") {
+        numberCheck = "Passe"  // Passed 19-36
+    }
+
+    // Update the table
+    updateTable(pickedNumber, color, numberType, numberCheck);
 }
 
 // Function for randomizing a number for the array
@@ -28,9 +49,9 @@ function Randomize(max) {
 }
 
 // Function used to update the display table
-function updateTable(result) {
+function updateTable(result, color, type, check) {
     // Add the spin to the array of last spins
-    lastSpins.push({result})
+    lastSpins.push({result, color, type, check})
 
     // Keep only the latest 9 spins
     if (lastSpins.length > 9) {
@@ -48,8 +69,20 @@ function updateTable(result) {
     lastSpins.forEach((spin) => {
         let newRow = tableBody.insertRow();
         let cell1 = newRow.insertCell(0);
+        let cell2 = newRow.insertCell(1);
+        let cell3 = newRow.insertCell(2);
+        let cell4 = newRow.insertCell(3);
 
+        // Fill with values
         cell1.textContent = spin.result;
+        cell2.textContent = spin.color;
+        cell3.textContent = spin.type;
+        cell4.textContent = spin.check;
+
+        // Fill with appropriate color
+        cell2.classList.add(spin.color)
+        cell3.classList.add(spin.type);
+        cell4.classList.add(spin.check);
     });
 }
 
