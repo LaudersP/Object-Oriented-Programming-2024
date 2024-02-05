@@ -12,7 +12,6 @@ HTMLDIR = os.path.abspath(
 def MakeApp():
     ## Points to the Profile class handler
     endpoints = [
-        
     ]
 
     ## Construct application
