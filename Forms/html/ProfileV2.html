@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset=utf8>
+        <link rel=stylesheet href="/static/StyleSheet.css">
+        <title>Profile for {{userName}}</title>
+    </head>
+    <body>
+        <h1 class="siteHeader">Foo Directory</h1>
+        <section>
+            <h1>Profile for '{{userName}}'</h1>
+            <img src="/static/IMG/{{userName}}.png">
+            <p>Real Name: {{name}}</p>
+            <p>Date of Birth: {{dateOfBirth}}</p>
+            <p>Email: {{email}}</p>
+        </section>
+        <section>
+            <table>
+                <tr><td>Username:  <td><input id="uname"></td></tr>
+                <tr><td>Real Name:  <td><input id="rname"></td></tr>
+                <tr><td>Date of Birth:  <td><input id="dob" type="date"></td></tr>
+                <tr><td>Email:  <td><input id="email" type="email"></td></tr>
+            </table>
+
+            <button onclick="submit()">Submit</button>
+
+            <script src="/static/updateprofile.js"></script>
+        </section>
+    </body>
+</html>
