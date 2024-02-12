@@ -1,6 +1,9 @@
 import tornado.web
 import json
 
+# Global variable to store the current looked at username
+current_username = None
+
 accountDatabase = {
     "alice": {
         "real_name": "Alice Smith",
@@ -25,22 +28,44 @@ accountDatabase = {
 }
 
 class Handler(tornado.web.RequestHandler):
-    def get(self):
-        self.render('../html/ProfileV2.html',
-                    userName = "dave",
-                    name = accountDatabase["dave"]['real_name'],
-                    dateOfBirth = accountDatabase["dave"]['DOB'],
-                    email = accountDatabase["dave"]['email'])
+    def get(self, username):
+        # Create global variable instance
+        global current_username
+
+        if username in accountDatabase:
+            # Get global variable value
+            current_username = username
+
+            self.render('../html/ProfileV2.html',
+                        userName = username,
+                        name = accountDatabase[username]['real_name'],
+                        dateOfBirth = accountDatabase[username]['DOB'],
+                        email = accountDatabase[username]['email'])
+        else:
+            self.write("<h1>USER NOT FOUND!</h1>")
         
     def post(self):
-        J = json.loads(self.request.body)
-        accountDatabase["dave"]['real_name'] = J["realName"]
-        accountDatabase["dave"]['DOB'] = J["birthDate"]
-        accountDatabase["dave"]['email'] = J["email"]
+        # Create global variable instance
+        global current_username
 
-        print("Name: ", accountDatabase["dave"]['real_name'])
-        print("DOB: ", accountDatabase["dave"]['DOB'])
-        print("email: ", accountDatabase["dave"]['email'])
+        # Check that 'current_username' is not empty
+        if current_username is not None:
+            # Get global variable value
+            username = current_username
 
-        resp={"ok": True}
-        self.write(json.dumps(resp))
+            J = json.loads(self.request.body)
+
+            # Check for filled responses
+            if J['realName'] is not "":
+                accountDatabase[username]['real_name'] = J["realName"]
+
+            if J['birthDate'] is not "":
+                accountDatabase[username]['DOB'] = J["birthDate"]
+
+            if J['email'] is not "":
+                accountDatabase[username]['email'] = J["email"]
+
+            resp={"ok": True}
+            self.write(json.dumps(resp))
+        else:
+            self.write("<h1>Invalid Request!</h1>")

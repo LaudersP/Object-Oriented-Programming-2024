@@ -10,7 +10,8 @@ HTMLDIR = os.path.abspath(
 
 def MakeApp():
     endpoints = [
-        ("/profilev2", ProfileV2.Handler)
+        ("/profilev2", ProfileV2.Handler),
+        (r"/profilev2/(.*)", ProfileV2.Handler)
     ]
 
     app = tornado.web.Application(endpoints,
