@@ -9,7 +9,7 @@
         <h1 class="siteHeader">Foo Directory</h1>
         <section>
             <h1>Profile for '{{userName}}'</h1>
-            <img src="/static/IMG/{{userName}}.png">
+            <img id="profileImage" src="{{image}}" width="250px">
             <p>Real Name: {{name}}</p>
             <p>Date of Birth: {{dateOfBirth}}</p>
             <p>Email: {{email}}</p>
@@ -21,6 +21,7 @@
                 <tr><td>Real Name:  <td><input id="rname"></td></tr>
                 <tr><td>Date of Birth:  <td><input id="dob" type="date"></td></tr>
                 <tr><td>Email:  <td><input id="email" type="email"></td></tr>
+                <tr><td>Profile Pic:  <td><input id="ppic" type="file" accept="image/*"></td></tr>
             </table>
 
             <button onclick="submit()">Submit</button>

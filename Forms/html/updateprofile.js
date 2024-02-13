@@ -1,3 +1,5 @@
+// Reference for localStorage: https://blog.logrocket.com/localstorage-javascript-complete-guide/
+
 "use strict";
 
 function submit() {
@@ -19,9 +21,32 @@ function submit() {
     ).then((resp) => {
         resp.json().then((J) => {
             console.log("Server said:", J);
-            document.location = document.location
+            storeImage();
+            document.location.reload();
         });
     }).catch((err) => {
         console.log("Uh oh", err);
-    })
+    });
+}
+
+function storeImage() {
+    let picture = document.getElementById("ppic").files[0];
+    if(picture) {
+        let R = new FileReader();
+        R.addEventListener("load", () => {
+            let profilePic = btoa(R.result);
+
+            localStorage.setItem("profileImage", profilePic);
+        });
+
+        R.readAsBinaryString(picture);
+    }
+}
+
+window.onload = function() {
+    let profilePicData = localStorage.getItem("profileImage");
+    if (profilePicData) {
+        document.getElementById("profileImage").src = "data:image/octet-stream;base64," + profilePicData;
+    }
+    localStorage.removeItem("profileImage");
 }

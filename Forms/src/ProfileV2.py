@@ -1,5 +1,6 @@
 import tornado.web
 import json
+import base64
 
 # Global variable to store the current looked at username
 current_username = None
@@ -8,22 +9,26 @@ accountDatabase = {
     "alice": {
         "real_name": "Alice Smith",
         "DOB": "Jan. 1",
-        "email": "alice@example.com"
+        "email": "alice@example.com",
+        "pic": "/static/IMG/alice.png"
     },
     "bob": {
         "real_name": "Bob Jones",
         "DOB": "Dec. 31",
-        "email": "bob@bob.xyz"
+        "email": "bob@bob.xyz",
+        "pic": "/static/IMG/bob.png"
     },
     "carol": {
         "real_name": "Carol Ling",
         "DOB": "Jul. 17",
-        "email": "carol@example.com"
+        "email": "carol@example.com",
+        "pic": "/static/IMG/carol.png"
     },
     "dave": {
         "real_name": "Dave N. Port",
         "DOB": "Mar. 14",
-        "email": "dave@dave.dave"
+        "email": "dave@dave.dave",
+        "pic": "/static/IMG/dave.png"
     }
 }
 
@@ -37,6 +42,7 @@ class Handler(tornado.web.RequestHandler):
             current_username = username
 
             self.render('../html/ProfileV2.html',
+                        image = accountDatabase[username]['pic'],
                         userName = username,
                         name = accountDatabase[username]['real_name'],
                         dateOfBirth = accountDatabase[username]['DOB'],
@@ -56,13 +62,13 @@ class Handler(tornado.web.RequestHandler):
             J = json.loads(self.request.body)
 
             # Check for filled responses
-            if J['realName'] is not "":
+            if J['realName'] != "":
                 accountDatabase[username]['real_name'] = J["realName"]
 
-            if J['birthDate'] is not "":
+            if J['birthDate'] != "":
                 accountDatabase[username]['DOB'] = J["birthDate"]
 
-            if J['email'] is not "":
+            if J['email'] != "":
                 accountDatabase[username]['email'] = J["email"]
 
             resp={"ok": True}
