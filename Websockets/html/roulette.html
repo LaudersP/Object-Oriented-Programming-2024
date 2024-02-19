@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Roulette</title>
+    <link rel=stylesheet href="/static/CSS/tableStyle.css">
+</head>
+
+<body>
+    <h1>Roulette</h1>
+
+    <div>
+        <button id="sendButton" disabled=1 onclick="sendMessage()">Send!</button>
+        
+        <table id="pastSpins">
+            <thead>
+                <tr>
+                    <th>Number</th>
+                    <th>Color</th>
+                    <th>Pairity</th>
+                    <th>Pass/Fail</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="/static/roulette.js"></script>
+</body>
+
+</html>
